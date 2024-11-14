@@ -61,7 +61,7 @@ RUN set -ex \
     && git clone --depth 1 --single-branch -b json-c-0.15-20200726 https://github.com/json-c/json-c.git json-c \
     && mkdir json-c-build \
     && cd json-c-build \
-    && cmake ../json-c \
+    && cmake ../json-c -DCMAKE_INSTALL_PREFIX=/usr \
     && make \
     && make install \
     && cd - \
@@ -71,7 +71,7 @@ RUN set -ex \
     && git clone --depth 1 --single-branch -b v1.12.0 https://github.com/benmcollins/libjwt.git libjwt \
     && cd libjwt \
     && autoreconf --force --install \
-    && ./configure --prefix=/usr/local \
+    && ./configure --prefix=/usr \
     && make -j \
     && make install \
     && cd - \
@@ -89,7 +89,7 @@ RUN set -ex \
     && git clone --depth 1 --single-branch -b 0.2.5 https://github.com/yaml/libyaml libyaml \
     && cd libyaml \
     && ./bootstrap \
-    && ./configure \
+    && ./configure --prefix=/usr \
     && make \
     && make install \
     && cd - \
@@ -101,7 +101,7 @@ RUN set -x \
     && git clone -b ${SLURM_TAG} --single-branch --depth=1 https://github.com/SchedMD/slurm.git \
     && pushd slurm \
     && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
-        --with-mysql_config=/usr/bin  --libdir=/usr/lib64 --with-jwt=/usr/local/ --with-yaml=/usr/local/ \
+        --with-mysql_config=/usr/bin  --libdir=/usr/lib64 --with-jwt=/usr/ --with-yaml=/usr/ \
     && make install \
     && install -D -m644 etc/cgroup.conf.example /etc/slurm/cgroup.conf.example \
     && install -D -m644 etc/slurm.conf.example /etc/slurm/slurm.conf.example \
