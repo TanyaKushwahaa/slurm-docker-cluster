@@ -132,6 +132,9 @@ RUN set -x \
     && chown -R slurm:slurm /var/*/slurm* \
     && /sbin/create-munge-key
 
+RUN groupadd -r --gid=991 slurmrestd \
+    && useradd -r -g slurmrestd --uid 991 slurmrestd
+
 RUN dd if=/dev/random of=/var/spool/slurm/statesave/jwt_hs256.key bs=32 count=1 \
     && chown slurm:slurm /var/spool/slurm/statesave/jwt_hs256.key \
     && chmod 0600 /var/spool/slurm/statesave/jwt_hs256.key \

@@ -50,6 +50,28 @@ services:
     networks:
       - slurm-network
 
+  slurmrestd:
+    image: slurm-docker-cluster:${IMAGE_TAG}
+    command: ["slurmrestd", "-vvvvvv", "0.0.0.0:6820"]
+    container_name: slurmrestd
+    hostname: slurmrestd
+    user: slurmrestd
+    environment:
+      SLURM_JWT: "INVALID"
+    volumes:
+      - etc_munge:/etc/munge
+      - etc_slurm:/etc/slurm
+      - slurm_jobdir:/data
+      - var_log_slurm:/var/log/slurm
+    expose:
+      - "6820"
+    ports:
+      - 6820:6820
+    depends_on:
+      - "slurmdbd"
+    networks:
+      - slurm-network
+
   c1:
     image: slurm-docker-cluster:${IMAGE_TAG}
     command: ["slurmd"]
