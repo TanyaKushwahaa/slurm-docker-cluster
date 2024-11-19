@@ -141,6 +141,7 @@ RUN dd if=/dev/random of=/var/spool/slurm/statesave/jwt_hs256.key bs=32 count=1 
     && chown slurm:slurm /var/spool/slurm/statesave \
     && chmod 0755 /var/spool/slurm/statesave
 
+COPY cgroup.conf /etc/slurm/cgroup.conf
 COPY slurm.conf /etc/slurm/slurm.conf
 COPY slurmdbd.conf /etc/slurm/slurmdbd.conf
 RUN set -x \
