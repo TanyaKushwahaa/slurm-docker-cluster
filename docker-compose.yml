@@ -61,6 +61,7 @@ services:
       SLURMRESTD_LISTEN: "0.0.0.0:6820"
       SLURMRESTD_DEBUG: "9"
       SLURMRESTD_JSON: "pretty"
+      SLURMRESTD_SECURITY: "disable_unshare_sysv,disable_unshare_files"
     volumes:
       - etc_munge:/etc/munge
       - etc_slurm:/etc/slurm
